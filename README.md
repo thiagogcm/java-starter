@@ -20,7 +20,7 @@ How to use it
 * Replace `PROJECT_NAME` with a new name
 * Rename the `rootProject.name` property in the `settings.gradle` file with the new project name
 
-#####Now you're good to go:
+##### Now you're good to go:
 ```
 ./gradlew run
 java -jar build/libs/PROJECT_NAME.jar
