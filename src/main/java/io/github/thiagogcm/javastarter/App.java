@@ -9,6 +9,6 @@ public class App {
     public static void main(String[] args) {
         logger.info("Starting App");
 
-        System.out.println("Starter!");
+        System.out.println("Hello World, Starter!");
     }
 }
