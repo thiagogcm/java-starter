@@ -3,11 +3,12 @@ Java Starter
 This a simple template to start a Java project using: 
 * Gradle 4 with kotlin script;
 * ShadowJar plugin to package a executable (fat)jar
-* Checkstyle with Google style guide;
+* Checkstyle plugin with Google style guide rules;
+* Jacoco plugin
 * JUnit 5 + Mockito;
 * Logging with SLF4J + Log4j2
 
-Dependencies
+Prerequisites
 ------------
 * JDK 8+
 
@@ -22,6 +23,6 @@ How to use it
 
 ##### Now you're good to go:
 ```
-./gradlew run
+./gradlew build
 java -jar build/libs/PROJECT_NAME.jar
 ```
