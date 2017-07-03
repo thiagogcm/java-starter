@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath("org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4")
-        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.0")
+        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.1")
     }
 }
 
@@ -27,7 +27,7 @@ repositories {
 }
 
 checkstyle {
-    toolVersion = "7.8"
+    toolVersion = "8.0"
 }
 
 jacoco {
@@ -94,6 +94,6 @@ tasks {
     }
 
     "wrapper"(Wrapper::class) {
-        gradleVersion = "4.0-rc-1"
+        gradleVersion = "4.0"
     }
 }
