@@ -2,11 +2,11 @@ Java Starter
 =============
 This a simple template to start a Java project using: 
 * Gradle 4 with kotlin script;
-* ShadowJar plugin to package a executable (fat)jar
+* ShadowJar plugin to package a executable (fat)jar;
 * Checkstyle plugin with Google style guide rules;
-* Jacoco plugin
+* Jacoco plugin;
 * JUnit 5 + Mockito;
-* Logging with SLF4J + Log4j2
+* Logging with SLF4J + Log4j2.
 
 Prerequisites
 ------------
@@ -21,8 +21,21 @@ How to use it
 * Replace `PROJECT_NAME` with a new name
 * Rename the `rootProject.name` property in the `settings.gradle` file with the new project name
 
-##### Now you're good to go:
+#### Now you're good to go:
 ```
 ./gradlew build
 java -jar build/libs/PROJECT_NAME.jar
+```
+
+##### Jacoco coverage notes:
+1. For runtime coverage report:
+```
+./gradlew run
+./gradlew applicationCodeCoverageReport
+```
+
+2. For test coverage report:
+```
+./gradlew test
+./gradlew jacocoJunit5TestReport
 ```

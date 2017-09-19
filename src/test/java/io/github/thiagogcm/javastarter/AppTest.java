@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
     @Test
-    @DisplayName("Test one")
+    @DisplayName("Test result")
     public void testOne() {
-        assertEquals(2, 1 + 1);
+        App app = new App();
+        assertEquals(2, app.result(1, 1));
     }
 }
