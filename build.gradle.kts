@@ -30,10 +30,10 @@ checkstyle {
 }
 
 jacoco {
-    val run by tasks
+    val run : JavaExec by tasks
 
     toolVersion = "0.7.9"
-    applyToHelper(run)
+    applyTo(run)
 }
 
 dependencies {
@@ -98,7 +98,7 @@ tasks {
     }
 
     "wrapper"(Wrapper::class) {
-        gradleVersion = "4.1"
+        gradleVersion = "4.2"
     }
 }
 
@@ -110,10 +110,10 @@ tasks {
 }
 
 afterEvaluate {
-    val junitPlatformTest by tasks
+    val junitPlatformTest : JavaExec by tasks
     
     jacoco {
-        applyToHelper(junitPlatformTest)
+        applyTo(junitPlatformTest)
     }
 
     task<JacocoReport>("jacocoJunit5TestReport") {
@@ -122,14 +122,4 @@ afterEvaluate {
         sourceDirectories = files(java.sourceSets["main"].allSource.srcDirs)
         classDirectories = files(java.sourceSets["main"].output)
     }
-}
-
-/**
- * Workaround fix for calling [org.gradle.testing.jacoco.plugins.JacocoPluginExtension.applyTo]
- *
- * [Issue details here](https://github.com/gradle/kotlin-dsl/issues/458)
- */
-fun org.gradle.testing.jacoco.plugins.JacocoPluginExtension.applyToHelper(task : Task) {
-    val method = this::class.java.getMethod("applyTo", Task::class.java)
-    method.invoke(this, task)
 }
