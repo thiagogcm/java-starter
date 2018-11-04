@@ -1,22 +1,10 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.3")
-    }
-}
-
 plugins {
     application
     checkstyle
     jacoco
-}
-
-apply {
-    plugin("com.github.johnrengelman.shadow")
+    pmd
+    id("com.github.johnrengelman.shadow") version "4.0.2"
+    id("com.github.spotbugs") version "1.6.5"
 }
 
 repositories {
@@ -24,38 +12,45 @@ repositories {
 }
 
 checkstyle {
-    toolVersion = "8.9"
+    toolVersion = "8.14"
+}
+
+spotbugs {
+    toolVersion = "3.1.8"
+}
+
+pmd {
+    toolVersion = "6.9.0"
 }
 
 jacoco {
-    val run : JavaExec by tasks
-
-    toolVersion = "0.8.1"
-    applyTo(run)
+    toolVersion = "0.8.2"
+    applyTo(tasks.run.get())
 }
 
 dependencies {
     // Utils libraries
-    //implementation("com.google.guava:guava:24.1-jre")
-    //implementation("org.apache.commons:commons-lang3:3.7")
-    //implementation("com.fasterxml.jackson.core:jackson-databind:2.9.5")
-    //implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.5")
-    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.5")
-    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
+    //implementation("com.google.guava:guava:27.0-jre")
+    //implementation("org.apache.commons:commons-lang3:3.8.1")
+    //implementation("com.fasterxml.jackson.core:jackson-databind:2.9.7")
+    //implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.7")
+    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.7")
+    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7")
 
     // Jdbc
-    //implementation("com.h2database:h2:1.4.196")
-    //implementation("com.zaxxer:HikariCP:2.7.8")
+    //implementation("com.h2database:h2:1.4.197")
+    //implementation("com.zaxxer:HikariCP:3.2.0")
 
     // Logging libraries
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.11.0")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.11.1")
 
     // Testing libraries
-    testCompile("org.mockito:mockito-core:2.18.3")
+    testImplementation("org.mockito:mockito-core:2.23.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.1.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.1")
 }
 
 application {
@@ -70,36 +65,44 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+task<JacocoReport>("applicationCodeCoverageReport") {
+    executionData(tasks.run.get())
+    sourceSets(sourceSets.main.get())
+}
+
 tasks {
-    "shadowJar"(ShadowJar::class) {
+    shadowJar {
         baseName = project.name
         classifier = null
         version = null
     }
 
-    "jar" {
+    jar {
         enabled = false
     }
 
-    "assemble" {
+    assemble {
         dependsOn("shadowJar")
     }
 
-    "applicationCodeCoverageReport"(JacocoReport::class) {
-        val run by tasks
+    test {
+	    useJUnitPlatform()
 
-        executionData(run)
-        sourceSets(java.sourceSets["main"])
+        testLogging {
+		    events("passed", "skipped", "failed")
+            showStandardStreams = true
+            showStackTraces = true
+	    }        
     }
 
-    "jacocoTestReport"(JacocoReport::class) {
+    jacocoTestReport {
         reports {
             xml.isEnabled = true
             html.isEnabled = true
         }
     }
 
-    "wrapper"(Wrapper::class) {
-        gradleVersion = "4.7"
+    wrapper {
+        gradleVersion = "5.0-rc-1"
     }
 }
