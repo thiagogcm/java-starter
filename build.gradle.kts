@@ -103,6 +103,6 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "5.0-rc-1"
+        gradleVersion = "5.0-rc-3"
     }
 }
