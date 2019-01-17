@@ -24,6 +24,7 @@ build/
 
 # Dirs
 bin/
+.directory
 
 # Logs
 *.log
