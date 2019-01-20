@@ -11,21 +11,33 @@ repositories {
     jcenter()
 }
 
+application {
+    mainClassName = "io.github.thiagogcm.javastarter.App"
+}
+
 checkstyle {
     toolVersion = "8.16"
 }
 
-spotbugs {
-    toolVersion = "3.1.10"
+jacoco {
+    toolVersion = "0.8.2"
+    applyTo(tasks.run.get())
+}
+
+java {
+    group = "io.github.thiagogcm.javastarter"
+    version = "1.0"
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 pmd {
     toolVersion = "6.10.0"
 }
 
-jacoco {
-    toolVersion = "0.8.2"
-    applyTo(tasks.run.get())
+spotbugs {
+    toolVersion = "3.1.10"
 }
 
 dependencies {
@@ -53,53 +65,41 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.2")
 }
 
-application {
-    mainClassName = "io.github.thiagogcm.javastarter.App"
-}
-
-java {
-    group = "io.github.thiagogcm.javastarter"
-    version = "1.0"
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 task<JacocoReport>("applicationCodeCoverageReport") {
     executionData(tasks.run.get())
     sourceSets(sourceSets.main.get())
 }
 
 tasks {
-    shadowJar {
-        baseName = project.name
-        classifier = null
-        version = null
+    assemble {
+        dependsOn("shadowJar")
+    }
+
+    jacocoTestReport {
+        reports {
+            html.isEnabled = true
+            xml.isEnabled = true
+        }
     }
 
     jar {
         enabled = false
     }
 
-    assemble {
-        dependsOn("shadowJar")
+    shadowJar {
+        baseName = project.name
+        classifier = null
+        version = null
     }
 
     test {
-	    useJUnitPlatform()
-
         testLogging {
 		    events("passed", "skipped", "failed")
             showStandardStreams = true
             showStackTraces = true
 	    }        
-    }
 
-    jacocoTestReport {
-        reports {
-            xml.isEnabled = true
-            html.isEnabled = true
-        }
+	    useJUnitPlatform()
     }
 
     wrapper {
