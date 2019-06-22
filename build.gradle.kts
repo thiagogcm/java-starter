@@ -3,8 +3,8 @@ plugins {
     checkstyle
     jacoco
     pmd
-    id("com.github.johnrengelman.shadow") version "4.0.3"
-    id("com.github.spotbugs") version "1.6.9"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
+    id("com.github.spotbugs") version "2.0.0"
 }
 
 repositories {
@@ -16,11 +16,11 @@ application {
 }
 
 checkstyle {
-    toolVersion = "8.16"
+    toolVersion = "8.21"
 }
 
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.4"
     applyTo(tasks.run.get())
 }
 
@@ -33,36 +33,36 @@ java {
 }
 
 pmd {
-    toolVersion = "6.10.0"
+    toolVersion = "6.15.0"
 }
 
 spotbugs {
-    toolVersion = "3.1.10"
+    toolVersion = "3.1.12"
 }
 
 dependencies {
     // Utils libraries
-    //implementation("com.google.guava:guava:27.0.1-jre")
-    //implementation("org.apache.commons:commons-lang3:3.8.1")
-    //implementation("com.fasterxml.jackson.core:jackson-databind:2.9.8")
-    //implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.8")
-    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.8")
-    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8")
+    //implementation("com.google.guava:guava:28.0-jre")
+    //implementation("org.apache.commons:commons-lang3:3.9")
+    //implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9")
+    //implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.9")
+    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.9")
+    //implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9")
 
     // Jdbc
-    //implementation("com.h2database:h2:1.4.197")
-    //implementation("com.zaxxer:HikariCP:3.3.0")
+    //implementation("com.h2database:h2:1.4.199")
+    //implementation("com.zaxxer:HikariCP:3.3.1")
 
     // Logging libraries
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.11.1")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.11.2")
 
     // Testing libraries
-    testImplementation("org.mockito:mockito-core:2.23.4")
+    testImplementation("org.mockito:mockito-core:2.28.2")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.3.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.4.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.4.2")
 }
 
 task<JacocoReport>("applicationCodeCoverageReport") {
@@ -103,6 +103,6 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "5.1.1"
+        gradleVersion = "5.4.1"
     }
 }
