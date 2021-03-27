@@ -1,7 +1,7 @@
 Java Starter
 =============
 This a simple template to start a Java project using: 
-* Gradle 4 with kotlin script;
+* Gradle 7 with kotlin script;
 * ShadowJar plugin to package a executable (fat)jar;
 * Checkstyle plugin with Google style guide rules;
 * Jacoco plugin;
