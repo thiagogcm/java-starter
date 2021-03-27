@@ -8,11 +8,11 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 application {
-    mainClassName = "io.github.thiagogcm.javastarter.App"
+    mainClass.set("io.github.thiagogcm.javastarter.App")
 }
 
 checkstyle {
@@ -83,9 +83,9 @@ tasks {
     }
 
     shadowJar {
-        baseName = project.name
-        classifier = null
-        version = null
+        archiveBaseName.set(project.name)
+        archiveClassifier.set("")
+        archiveVersion.set("")
     }
 
     test {
